@@ -7,13 +7,13 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 public class SplashActivity extends AppCompatActivity {
 
-    Animation move;
-
+    Animation move, fadeIn;
     ImageView logo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,30 +22,13 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         move = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.logo_anim);
         logo = findViewById(R.id.logo);
-        Animation fadeIn = new AlphaAnimation(0,1);
+        AnimationSet set = new AnimationSet(true);
+        fadeIn = new AlphaAnimation(0,1);
         fadeIn.setInterpolator(new AccelerateInterpolator());
-        fadeIn.setDuration(1500);
-        logo.startAnimation(fadeIn);
-        fadeIn.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                logo.startAnimation(move);
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-
-
-        ;
+        fadeIn.setDuration(1000);
+        set.addAnimation(fadeIn);
+        set.addAnimation(move);
+        logo.startAnimation(set);
         new Thread(){
             @Override
             public void run() {
@@ -63,4 +46,4 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-    }
+}
