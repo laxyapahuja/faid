@@ -15,6 +15,7 @@ import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     Animation move, fadeIn;
     ImageView logo;
+    Snackbar snackbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.signup);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         mAuth = FirebaseAuth.getInstance();
+
     }
 
     public void goToLogIn(View view) {
@@ -43,40 +47,49 @@ public class MainActivity extends AppCompatActivity {
     public void repeatPassword(View view) {
         Button signup = findViewById(R.id.signupbutton);
         TextInputEditText passwordet = findViewById(R.id.password);
-        String password = passwordet.getText().toString();
         TextInputEditText repeatpasswordet = findViewById(R.id.repeatpassword);
+        String password = passwordet.getText().toString();
         String repeatpassword = repeatpasswordet.getText().toString();
         if (repeatpassword.equals(password)) {
             signUp(view);
-        }
-        else {
+        } else {
             Toast.makeText(this, "Passwords should be the same.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void signUp(View view) {
+    public void signUp(final View view) {
         TextInputEditText loginet = findViewById(R.id.email);
         TextInputEditText passwordet = findViewById(R.id.password);
         String email = loginet.getText().toString();
         String password = passwordet.getText().toString();
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(getApplicationContext(), "Sign up successful.", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(MainActivity.this, HomeActivity.class));
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(getApplicationContext(), "Sign up failed.", Toast.LENGTH_LONG).show();
-                            System.out.println(task.getException());
-                        }
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                // Toast.makeText(getApplicationContext(), "Sign up successful.", Toast.LENGTH_LONG).show();
+                                //snackbar.make(view, "sddsfgsd", snackbar.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("state", "signup");
+                                intent.putExtras(bundle);
 
-                        // ...
-                    }
-                });
-    }
+                                startActivity(intent);
+
+
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(getApplicationContext(), "Sign up failed.", Toast.LENGTH_LONG).show();
+                                System.out.println(task.getException());
+                            }
+
+                            // ...
+                        }
+                    });
+        }
+
+
 
 }
