@@ -1,19 +1,19 @@
 package com.example.faid;
 
-<<<<<<< HEAD
+
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-=======
+
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
->>>>>>> 848bd3ff7afb283516f6386303e80fdbc4735ee9
+
 
 public class HomeActivity extends AppCompatActivity {
     View view;
@@ -26,7 +26,6 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent  = getIntent();
         Bundle bundle = intent.getExtras();
         String data = bundle.getString("state","");
-        System.out.println(data);
        if (data.equals("signup")){
           Snackbar.make(findViewById(android.R.id.content), "Sign Up Successful",Snackbar.LENGTH_SHORT).show();
        }

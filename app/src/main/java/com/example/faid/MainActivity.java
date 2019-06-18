@@ -75,11 +75,9 @@ public class MainActivity extends AppCompatActivity {
                                 Bundle bundle = new Bundle();
                                 bundle.putString("state", "signup");
                                 intent.putExtras(bundle);
-
                                 startActivity(intent);
-
-
-                            } else {
+                            }
+                            else {
                                 // If sign in fails, display a message to the user.
                                 Toast.makeText(getApplicationContext(), "Sign up failed.", Toast.LENGTH_LONG).show();
                                 System.out.println(task.getException());
