@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                             //Toast.makeText(LoginActivity.this, "Welcome.", Toast.LENGTH_SHORT).show();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(LoginActivity.this, "Log in failed.", Toast.LENGTH_SHORT).show();
+                           Snackbar.make(findViewById(android.R.id.content), "Log in failed.", Snackbar.LENGTH_SHORT).show();
                         }
 
                         // ...

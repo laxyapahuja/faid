@@ -69,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                // Toast.makeText(getApplicationContext(), "Sign up successful.", Toast.LENGTH_LONG).show();
-                                //snackbar.make(view, "sddsfgsd", snackbar.LENGTH_SHORT).show();
                                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                                 Bundle bundle = new Bundle();
                                 bundle.putString("state", "signup");
@@ -81,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
                             } else {
                                 // If sign in fails, display a message to the user.
-                                Toast.makeText(getApplicationContext(), "Sign up failed.", Toast.LENGTH_LONG).show();
+                                Snackbar.make(findViewById(android.R.id.content), "Sign Up failed.", Snackbar.LENGTH_SHORT).show();
                                 System.out.println(task.getException());
                             }
 
