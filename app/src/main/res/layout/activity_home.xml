@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
+<<<<<<< HEAD
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -66,5 +67,8 @@
         </LinearLayout>
 
     </LinearLayout>
+=======
+
+>>>>>>> 848bd3ff7afb283516f6386303e80fdbc4735ee9
 
 </RelativeLayout>
