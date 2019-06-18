@@ -2,6 +2,7 @@ package com.example.faid;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -38,6 +40,20 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
 
+    public void repeatPassword(View view) {
+        Button signup = findViewById(R.id.signupbutton);
+        TextInputEditText passwordet = findViewById(R.id.password);
+        String password = passwordet.getText().toString();
+        TextInputEditText repeatpasswordet = findViewById(R.id.repeatpassword);
+        String repeatpassword = repeatpasswordet.getText().toString();
+        if (repeatpassword.equals(password)) {
+            signUp(view);
+        }
+        else {
+            Toast.makeText(this, "Passwords should be the same.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void signUp(View view) {
         TextInputEditText loginet = findViewById(R.id.email);
         TextInputEditText passwordet = findViewById(R.id.password);
@@ -62,4 +78,5 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }
