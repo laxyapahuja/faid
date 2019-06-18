@@ -14,9 +14,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 
 public class HomeActivity extends AppCompatActivity {
+    private FirebaseAuth mAuth;
     View view;
+
 
 
     @Override
@@ -32,12 +36,13 @@ public class HomeActivity extends AppCompatActivity {
        else{
            Snackbar.make(findViewById(android.R.id.content), "Log In Successful",Snackbar.LENGTH_SHORT).show();
        }
+        mAuth = FirebaseAuth.getInstance();
+        String email = mAuth.getCurrentUser().getEmail().toString();
+        TextView profilenametv = findViewById(R.id.profilename);
+        profilenametv.setText(email);
     }
 
     public void profileName(View view) {
-        TextInputEditText loginet = findViewById(R.id.email);
-        String email = loginet.getText().toString();
-        TextView profilenametv = findViewById(R.id.profilename);
-        profilenametv.setText(email);
+
     }
 }
