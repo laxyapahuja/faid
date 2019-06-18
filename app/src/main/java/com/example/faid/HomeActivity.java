@@ -3,6 +3,7 @@ package com.example.faid;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -62,10 +64,13 @@ public class HomeActivity extends AppCompatActivity {
     }
 
         private void checkPermissions() {
-            int permissionCheck = HomeActivity.this.checkSelfPermission("Manifest.permission.WRITE_EXTERNAL_STORAGE");
-            if (permissionCheck != 0) {
+            if (ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(HomeActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                        1001);
+            }
+            else {
+                System.out.println("Permission is granted.");
             }
         }
 
