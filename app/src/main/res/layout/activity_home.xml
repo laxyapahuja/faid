@@ -4,15 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    android:background="@color/colorPrimary"
+    tools:context=".HomeActivity"
+    android:fitsSystemWindows="true">
 
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@mipmap/faid_logo"
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/logo"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:id="@+id/profilepic"/>
+        android:id="@+id/profilepic"
+        android:onClick="selectImage"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -20,55 +24,104 @@
         android:layout_below="@+id/profilepic"
         android:id="@+id/profilename"
         android:textAlignment="center"
-        android:textSize="35sp"/>
+        android:textSize="25sp"
+        android:text="Name"
+        android:textColor="#000"
+        android:fontFamily="@font/productsans"
+        android:layout_marginTop="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="7dp">
+
+        <android.support.design.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="150dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginStart="7dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Detect"
+            android:textColor="@color/colorPrimaryDark"
+            android:textAllCaps="false"
+            android:fontFamily="@font/productsans_bold"
+            android:textSize="25sp"
+            app:icon="@drawable/ic_pan_tool_black_24dp"
+            app:iconTint="@color/colorPrimaryDark"
+            app:iconSize="30sp"
+            app:iconGravity="textStart" />
+
+        <android.support.design.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="150dp"
+            android:layout_marginEnd="7dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Learn"
+            android:textColor="@color/colorPrimaryDark"
+            android:textAllCaps="false"
+            android:fontFamily="@font/productsans_bold"
+            android:textSize="25sp"
+            app:icon="@drawable/ic_search_black_24dp"
+            app:iconTint="@color/colorPrimaryDark"
+            app:iconSize="30sp"
+            app:iconGravity="textStart" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <android.support.design.button.MaterialButton
-            android:layout_width="200dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="4dp"/>
+    <android.support.design.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="150dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginStart="7dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Symptom"
+        android:textColor="@color/colorPrimaryDark"
+        android:textAllCaps="false"
+        android:fontFamily="@font/productsans_bold"
+        android:textSize="25sp"
+        app:icon="@drawable/ic_check_box_black_24dp"
+        app:iconTint="@color/colorPrimaryDark"
+        app:iconSize="30sp"
+        app:iconGravity="textStart"/>
 
-        <android.support.design.button.MaterialButton
-            android:layout_width="200dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="3dp"
-            android:backgroundTint="@color/colorPrimary"
-            app:icon="@mipmap/faid_logo"
-            android:layout_marginEnd="3dp"/>
+    <android.support.design.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="150dp"
+        android:layout_marginEnd="7dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Nearby"
+        android:textColor="@color/colorPrimaryDark"
+        android:textAllCaps="false"
+        android:fontFamily="@font/productsans_bold"
+        android:textSize="25sp"
+        app:icon="@drawable/ic_location_on_black_24dp"
+        app:iconTint="@color/colorPrimaryDark"
+        app:iconSize="30sp"
+        app:iconGravity="textStart"/>
+    </LinearLayout>
 
     </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-            <android.support.design.button.MaterialButton
-                android:layout_width="200dp"
-                android:layout_height="150dp"
-                android:layout_marginStart="4dp"/>
-
-            <android.support.design.button.MaterialButton
-                android:layout_width="200dp"
-                android:layout_height="150dp"
-                android:layout_marginStart="3dp"
-                android:layout_marginEnd="3dp"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-=======
-
->>>>>>> 848bd3ff7afb283516f6386303e80fdbc4735ee9
 
 </RelativeLayout>
