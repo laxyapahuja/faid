@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="7dp">
-
+        
         <android.support.design.button.MaterialButton
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="0dp"
@@ -54,12 +54,14 @@
             android:text="Detect"
             android:textColor="@color/colorPrimaryDark"
             android:textAllCaps="false"
-            android:fontFamily="@font/productsans_bold"
+            android:fontFamily="@font/productsansbold"
             android:textSize="25sp"
             app:icon="@drawable/ic_pan_tool_black_24dp"
             app:iconTint="@color/colorPrimaryDark"
             app:iconSize="30sp"
-            app:iconGravity="textStart" />
+            app:iconGravity="textStart"
+            android:elevation="5dp"
+            android:onClick="goToDetect"/>
 
         <android.support.design.button.MaterialButton
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
@@ -71,12 +73,14 @@
             android:text="Learn"
             android:textColor="@color/colorPrimaryDark"
             android:textAllCaps="false"
-            android:fontFamily="@font/productsans_bold"
+            android:fontFamily="@font/productsansbold"
             android:textSize="25sp"
             app:icon="@drawable/ic_search_black_24dp"
             app:iconTint="@color/colorPrimaryDark"
             app:iconSize="30sp"
-            app:iconGravity="textStart" />
+            app:iconGravity="textStart"
+            android:elevation="5dp"
+            android:onClick="goToLearn"/>
     </LinearLayout>
 
     <LinearLayout
@@ -92,15 +96,17 @@
         android:layout_marginEnd="7dp"
         android:layout_marginStart="7dp"
         android:backgroundTint="@color/colorPrimary"
-        android:text="Symptom"
+        android:text="Diagnosis"
         android:textColor="@color/colorPrimaryDark"
         android:textAllCaps="false"
-        android:fontFamily="@font/productsans_bold"
+        android:fontFamily="@font/productsansbold"
         android:textSize="25sp"
         app:icon="@drawable/ic_check_box_black_24dp"
         app:iconTint="@color/colorPrimaryDark"
-        app:iconSize="30sp"
-        app:iconGravity="textStart"/>
+        app:iconSize="25sp"
+        app:iconGravity="textStart"
+        android:elevation="5dp"
+        android:onClick="goToSymptom"/>
 
     <android.support.design.button.MaterialButton
         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
@@ -109,15 +115,16 @@
         android:layout_height="150dp"
         android:layout_marginEnd="7dp"
         android:backgroundTint="@color/colorPrimary"
-        android:text="Nearby"
+        android:text="Nearby Clinics"
         android:textColor="@color/colorPrimaryDark"
         android:textAllCaps="false"
-        android:fontFamily="@font/productsans_bold"
-        android:textSize="25sp"
+        android:fontFamily="@font/productsansbold"
+        android:textSize="20sp"
         app:icon="@drawable/ic_location_on_black_24dp"
         app:iconTint="@color/colorPrimaryDark"
         app:iconSize="30sp"
-        app:iconGravity="textStart"/>
+        app:iconGravity="textStart"
+        android:elevation="5dp"/>
     </LinearLayout>
 
     </LinearLayout>
