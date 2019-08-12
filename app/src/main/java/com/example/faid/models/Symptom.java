@@ -1,12 +1,16 @@
 package com.example.faid.models;
 
-public class Symptom {
-    private String Name;
-    private int ID;
+import java.io.Serializable;
 
-    public Symptom(String name, int ID) {
+public class Symptom implements Serializable {
+    private String Name;
+    private String ID;
+    private boolean select;
+
+    public Symptom(String name, String ID, boolean select) {
         Name = name;
         this.ID = ID;
+        this.select = select;
     }
 
     public Symptom() {
@@ -20,12 +24,20 @@ public class Symptom {
         Name = name;
     }
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(String ID) {
         this.ID = ID;
+    }
+
+    public boolean isSelect() {
+        return select;
+    }
+
+    public void setSelect(boolean select) {
+        this.select = select;
     }
 
     @Override

@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="55dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
+    tools:context=".SymptomListItem">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -11,27 +13,40 @@
         android:backgroundTint="@color/colorPrimaryDark"
         app:cardCornerRadius="10dp">
 
-        <TextView
-            android:id="@+id/symptom"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/listlinear"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/productsans"
-            android:padding="5dp"
-            android:text="Symptom"
-            android:textColor="#FFF"
-            android:textSize="15sp" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="350dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/productsans"
-            android:text="ID"
-            android:textColor="@color/colorPrimary"
-            android:id="@+id/ID" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_check_black_24dp"
+                android:layout_marginTop="15dp"
+                android:id="@+id/check"/>
+
+            <TextView
+                android:id="@+id/symptom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/productsans"
+                android:padding="5dp"
+                android:text="Symptom"
+                android:textColor="#FFF"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/productsans"
+                android:text="ID"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/ID"
+                android:layout_marginTop="12dp"/>
+
+        </LinearLayout>
 
 
     </android.support.v7.widget.CardView>

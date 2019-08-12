@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/faid_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SymptomActivity"></activity>
+        <activity android:name=".DiagnosisActivity"></activity>
+        <activity android:name=".SymptomActivity" />
         <activity android:name=".LearnActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".LoginActivity" />
