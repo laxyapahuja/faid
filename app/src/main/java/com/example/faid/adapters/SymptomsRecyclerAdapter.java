@@ -20,11 +20,7 @@ import java.util.ArrayList;
 
 public class SymptomsRecyclerAdapter extends  RecyclerView.Adapter<SymptomsRecyclerAdapter.ViewHolder> {
 
-    private Context context;
     private ArrayList<Symptom> mSymptoms;
-    private ViewHolder holder;
-    private ArrayList mSelectedSymptoms;
-    private LinearLayout listlinear;
 
     public SymptomsRecyclerAdapter(ArrayList<Symptom> mSymptoms) {
         this.mSymptoms = mSymptoms;
