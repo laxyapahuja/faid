@@ -1,10 +1,13 @@
 package com.example.faid;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -25,9 +28,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class DiagnosisActivity extends AppCompatActivity {
+public class DiagnosisActivity extends AppCompatActivity implements DiagnosisRecyclerAdapter.OnDiagnosisListener {
 
-    private ArrayList mDiagnosis = new ArrayList();
+    private ArrayList<Diagnosis> mDiagnosis = new ArrayList();
     private DiagnosisRecyclerAdapter mDiagnosisRecyclerAdapter;
     private RecyclerView mRecyclerView;
 
@@ -43,12 +46,17 @@ public class DiagnosisActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.diagnosisRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mDiagnosisRecyclerAdapter = new DiagnosisRecyclerAdapter(mDiagnosis);
+        mDiagnosisRecyclerAdapter = new DiagnosisRecyclerAdapter(mDiagnosis, this);
         mRecyclerView.setAdapter(mDiagnosisRecyclerAdapter);
+    }
+
+    public void goToHome(View view){
+        startActivity(new Intent(DiagnosisActivity.this,HomeActivity.class));
     }
 
 
     private void getResponse() {
+        // URL transfer from SymptomActivity to this
         Bundle bundle = getIntent().getExtras();
         String diagnosisURL = bundle.getString("url");
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -89,5 +97,15 @@ public class DiagnosisActivity extends AppCompatActivity {
         );
 
         queue.add(getRequest);
+    }
+
+    @Override
+    public void OnClick(int position) {
+        Diagnosis diagnosis = new Diagnosis();
+        Diagnosis diag = mDiagnosis.get(position);
+        String urldiag = diag.getProfName().replaceAll("\\s+","+");
+        Uri uri = Uri.parse("http://www.google.com/search?q="+urldiag); // missing 'http://' will cause crashed
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 }
