@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.widget.Toast;
 
+import com.example.faid.models.CameraActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;

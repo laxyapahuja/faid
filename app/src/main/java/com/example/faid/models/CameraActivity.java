@@ -1,4 +1,4 @@
-/* Copyright 2017 The TensorFlow Authors. All Rights Reserved.
+package com.example.faid.models;/* Copyright 2017 The TensorFlow Authors. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,10 +13,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-package com.example.faid;
-
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.example.faid.Camera2BasicFragment;
+import com.example.faid.R;
 
 /** Main {@code Activity} class for the Camera app. */
 public class CameraActivity extends Activity {
