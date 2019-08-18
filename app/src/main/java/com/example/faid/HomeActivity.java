@@ -116,7 +116,10 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(new Intent(HomeActivity.this, SymptomActivity.class));
         }
 
+    public void goToDetect(View view) {
+        startActivity(new Intent(HomeActivity.this, CameraActivity.class));
     }
+}
 
 
 
