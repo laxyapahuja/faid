@@ -22,16 +22,18 @@ import java.util.ArrayList;
 public class DiagnosisRecyclerAdapter extends  RecyclerView.Adapter<DiagnosisRecyclerAdapter.ViewHolder> {
 
     private ArrayList<Diagnosis> mDiagnosis;
+    private OnDiagnosisListener mOnDiagnosisListener;
 
-    public DiagnosisRecyclerAdapter(ArrayList<Diagnosis> mDiagnosis) {
+    public DiagnosisRecyclerAdapter(ArrayList<Diagnosis> mDiagnosis, OnDiagnosisListener onDiagnosisListener) {
         this.mDiagnosis = mDiagnosis;
+        this.mOnDiagnosisListener = onDiagnosisListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.diagnosis_list_item, viewGroup, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mOnDiagnosisListener);
     }
 
     @Override
@@ -46,19 +48,31 @@ public class DiagnosisRecyclerAdapter extends  RecyclerView.Adapter<DiagnosisRec
         return mDiagnosis.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView diagnosis;
         TextView acc;
         TextView desc;
+        OnDiagnosisListener onDiagnosisListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnDiagnosisListener onDiagnosisListener) {
             super(itemView);
             diagnosis = itemView.findViewById(R.id.diagnosis);
             acc = itemView.findViewById(R.id.acc);
             desc = itemView.findViewById(R.id.desc);
+            this.onDiagnosisListener = onDiagnosisListener;
+
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            onDiagnosisListener.OnClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnDiagnosisListener{
+        void OnClick(int position);
     }
 
 }
