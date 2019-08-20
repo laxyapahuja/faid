@@ -13,21 +13,39 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.faid.adapters.SymptomsRecyclerAdapter;
+import com.example.faid.models.AccessToken;
 import com.example.faid.models.Symptom;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import android.util.Base64;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 public class SymptomActivity extends AppCompatActivity {
     private RequestQueue mQueue;
@@ -48,7 +66,6 @@ public class SymptomActivity extends AppCompatActivity {
         btnGetSelected = findViewById(R.id.btnGetSelected);
         RequestQueue queue = Volley.newRequestQueue(this);
         initRecyclerView();
-        getToken();
         getResponse();
 
         btnGetSelected.setOnClickListener(new View.OnClickListener() {
@@ -61,8 +78,11 @@ public class SymptomActivity extends AppCompatActivity {
                         stringBuilder.append("\n");
                         mSelectedSymptoms.add(mSymptomRecyclerAdapter.getSelected().get(i).getID());
                     }
+                    Bundle bun = getIntent().getExtras();
+                    String token = bun.getString("token");
+                    String mtoken = token.replaceAll("\\s+","");
                     String selectedsymptoms = mSelectedSymptoms.toString().replaceAll("\\s+","");
-                    diagnosisURL = "https://healthservice.priaid.ch/diagnosis?symptoms="+selectedsymptoms+"&gender=male&year_of_birth=2002&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImxheHlhLnBhaHVqYThAZ21haWwuY29tIiwicm9sZSI6IlVzZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiIyNjAyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy92ZXJzaW9uIjoiMTA5IiwiaHR0cDovL2V4YW1wbGUub3JnL2NsYWltcy9saW1pdCI6IjEwMCIsImh0dHA6Ly9leGFtcGxlLm9yZy9jbGFpbXMvbWVtYmVyc2hpcCI6IkJhc2ljIiwiaHR0cDovL2V4YW1wbGUub3JnL2NsYWltcy9sYW5ndWFnZSI6ImVuLWdiIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9leHBpcmF0aW9uIjoiMjA5OS0xMi0zMSIsImh0dHA6Ly9leGFtcGxlLm9yZy9jbGFpbXMvbWVtYmVyc2hpcHN0YXJ0IjoiMjAxOS0wNi0xOCIsImlzcyI6Imh0dHBzOi8vYXV0aHNlcnZpY2UucHJpYWlkLmNoIiwiYXVkIjoiaHR0cHM6Ly9oZWFsdGhzZXJ2aWNlLnByaWFpZC5jaCIsImV4cCI6MTU2NjEzNjU1MSwibmJmIjoxNTY2MTI5MzUxfQ.3aEfjl-i5LlnJmQQQGcpMWgAGlCKg_E5T2XsCem1fxc&format=json&language=en-gb";
+                    diagnosisURL = "https://healthservice.priaid.ch/diagnosis?symptoms="+selectedsymptoms+"&gender=male&year_of_birth=2002&token="+mtoken+"&format=json&language=en-gb";
                     System.out.println(mSelectedSymptoms);
                     Toast.makeText(SymptomActivity.this, stringBuilder.toString(), Toast.LENGTH_SHORT).show();
                     goToDiagnosis();
@@ -73,21 +93,19 @@ public class SymptomActivity extends AppCompatActivity {
         });
     }
 
-    private void getToken(){
-
-    }
-
-
-        private void initRecyclerView() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        mSymptomRecyclerAdapter = new SymptomsRecyclerAdapter(mSymptoms);
-        mRecyclerView.setAdapter(mSymptomRecyclerAdapter);
+    private void initRecyclerView() {
+    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+    mRecyclerView.setLayoutManager(linearLayoutManager);
+    mSymptomRecyclerAdapter = new SymptomsRecyclerAdapter(mSymptoms);
+    mRecyclerView.setAdapter(mSymptomRecyclerAdapter);
     }
 
     private void getResponse() {
+        Bundle bun = getIntent().getExtras();
+        String token = bun.getString("token");
+        String mtoken = token.replaceAll("\\s+","");
         RequestQueue queue = Volley.newRequestQueue(this);
-        final String url = "https://healthservice.priaid.ch/symptoms?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImxheHlhLnBhaHVqYThAZ21haWwuY29tIiwicm9sZSI6IlVzZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiIyNjAyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy92ZXJzaW9uIjoiMTA5IiwiaHR0cDovL2V4YW1wbGUub3JnL2NsYWltcy9saW1pdCI6IjEwMCIsImh0dHA6Ly9leGFtcGxlLm9yZy9jbGFpbXMvbWVtYmVyc2hpcCI6IkJhc2ljIiwiaHR0cDovL2V4YW1wbGUub3JnL2NsYWltcy9sYW5ndWFnZSI6ImVuLWdiIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9leHBpcmF0aW9uIjoiMjA5OS0xMi0zMSIsImh0dHA6Ly9leGFtcGxlLm9yZy9jbGFpbXMvbWVtYmVyc2hpcHN0YXJ0IjoiMjAxOS0wNi0xOCIsImlzcyI6Imh0dHBzOi8vYXV0aHNlcnZpY2UucHJpYWlkLmNoIiwiYXVkIjoiaHR0cHM6Ly9oZWFsdGhzZXJ2aWNlLnByaWFpZC5jaCIsImV4cCI6MTU2NjEzNjU1MSwibmJmIjoxNTY2MTI5MzUxfQ.3aEfjl-i5LlnJmQQQGcpMWgAGlCKg_E5T2XsCem1fxc&format=json&language=en-gb";
+        final String url = "https://healthservice.priaid.ch/symptoms?token="+mtoken+"&format=json&language=en-gb";
 
         JsonArrayRequest getRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>()

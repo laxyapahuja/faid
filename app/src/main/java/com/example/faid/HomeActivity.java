@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
     private static int RESULT_LOAD_IMG = 1;
     String imgDecodableString;
     View view;
+    TextInputEditText et;
 
 
     @Override
@@ -51,7 +53,10 @@ public class HomeActivity extends AppCompatActivity {
         String email = mAuth.getCurrentUser().getEmail().toString();
         TextView profilenametv = findViewById(R.id.profilename);
         profilenametv.setText(email);
+        et = findViewById(R.id.token);
+        String token= et.getEditableText().toString();
     }
+
 
         private void checkPermissions() {
             if (ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -115,6 +120,13 @@ public class HomeActivity extends AppCompatActivity {
 
         public void goToSymptom(View view) {
         startActivity(new Intent(HomeActivity.this, SymptomActivity.class));
+            Intent intent = new Intent(this, SymptomActivity.class);
+            String token= et.getText().toString();
+            System.out.println(token);
+            Bundle bun = new Bundle();
+            bun.putString("token", token);
+            intent.putExtras(bun);
+            startActivity(intent);
         }
 
     public void goToDetect(View view) {
