@@ -1,5 +1,8 @@
-Chickenpox
-Eczema
-Measles
-Psoriasis
-Warts
+acne
+blister
+chickenpox
+eczema
+measles
+psoriasis
+rosacea
+warts
