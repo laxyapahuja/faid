@@ -7,17 +7,17 @@ import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.design.widget.TextInputEditText;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputEditText;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
+import com.google.android.material.snackbar.Snackbar;
 import android.widget.Toast;
 
 import com.example.faid.models.CameraActivity;
@@ -131,6 +131,10 @@ public class HomeActivity extends AppCompatActivity {
 
     public void goToDetect(View view) {
         startActivity(new Intent(HomeActivity.this, CameraActivity.class));
+    }
+
+    public void goToNearby(View view) {
+        startActivity(new Intent(HomeActivity.this, MapsActivity.class));
     }
 }
 
