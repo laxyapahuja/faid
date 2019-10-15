@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_profile"
+        android:icon="@drawable/profile"
+        android:title="Profile"/>
+
+    <item
+        android:id="@+id/action_classify"
+        android:icon="@drawable/detect"
+        android:title="Detect"/>
+
+    <item
+        android:id="@+id/action_nearme"
+        android:icon="@drawable/learn"
+        android:title="Learn"/>
+
+    <item
+        android:id="@+id/action_weather"
+        android:icon="@drawable/daignosis"
+        android:title="Diagnosis"/>
+
+    <item
+        android:id="@+id/action_nearby"
+        android:icon="@drawable/nearby"
+        android:title="Clinics"/>
+
+</menu>

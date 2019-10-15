@@ -9,8 +9,11 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.faid.DiagnosisActivity;
 import com.example.faid.R;
+import com.example.faid.SymptomActivity;
 import com.example.faid.models.Symptom;
 
 import java.util.ArrayList;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 public class SymptomsRecyclerAdapter extends  RecyclerView.Adapter<SymptomsRecyclerAdapter.ViewHolder> {
 
     private ArrayList<Symptom> mSymptoms;
+    int n=0;
 
     public SymptomsRecyclerAdapter(ArrayList<Symptom> mSymptoms) {
         this.mSymptoms = mSymptoms;
@@ -78,9 +82,16 @@ public class SymptomsRecyclerAdapter extends  RecyclerView.Adapter<SymptomsRecyc
 
     public ArrayList<Symptom> getSelected() {
         ArrayList<Symptom> selected = new ArrayList<>();
-        for (int i = 0; i < 281; i++) {
-            if (mSymptoms.get(i).isSelect()) {
-                selected.add(mSymptoms.get(i));
+        if (mSymptoms.size()==0) {
+            n=1;
+        }
+        else {
+            for (int i = 0; i < 281; i++) {
+                if (mSymptoms.get(i).isSelect()) {
+                    selected.add(mSymptoms.get(i));
+                } else {
+                    n = 1;
+                }
             }
         }
         return selected;

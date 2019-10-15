@@ -49,4 +49,5 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
     implementation 'com.google.android.gms:play-services-maps:+'
     implementation 'com.google.android.gms:play-services-location:+'
+    implementation 'com.google.firebase:firebase-firestore:17.1.2'
 }

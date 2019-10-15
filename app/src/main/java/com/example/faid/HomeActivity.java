@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.faid.models.CameraActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -40,21 +41,32 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         checkPermissions();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        String data = bundle.getString("state", "");
-        if (data.equals("signup")) {
-            Snackbar.make(findViewById(android.R.id.content), "Sign Up Successful", Snackbar.LENGTH_SHORT).show();
-        } else {
-            Snackbar.make(findViewById(android.R.id.content), "Log In Successful", Snackbar.LENGTH_SHORT).show();
+        try {
+            String data = bundle.getString("state", "");
+            if (data.equals("signup")) {
+                Snackbar.make(findViewById(android.R.id.content), "Sign Up Successful", Snackbar.LENGTH_SHORT).show();
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), "Log In Successful", Snackbar.LENGTH_SHORT).show();
+            }
+            mAuth = FirebaseAuth.getInstance();
+            mStorageRef = FirebaseStorage.getInstance().getReference();
+            String email = mAuth.getCurrentUser().getEmail().toString();
+            TextView profilenametv = findViewById(R.id.profilename);
+            profilenametv.setText(email);
+            et = findViewById(R.id.token);
+            String token = et.getEditableText().toString();
+        } catch (Exception e){
+            mAuth = FirebaseAuth.getInstance();
+            mStorageRef = FirebaseStorage.getInstance().getReference();
+            String email = mAuth.getCurrentUser().getEmail().toString();
+            TextView profilenametv = findViewById(R.id.profilename);
+            profilenametv.setText(email);
+            et = findViewById(R.id.token);
+            String token = et.getEditableText().toString();
         }
-        mAuth = FirebaseAuth.getInstance();
-        mStorageRef = FirebaseStorage.getInstance().getReference();
-        String email = mAuth.getCurrentUser().getEmail().toString();
-        TextView profilenametv = findViewById(R.id.profilename);
-        profilenametv.setText(email);
-        et = findViewById(R.id.token);
-        String token= et.getEditableText().toString();
     }
 
 
@@ -124,10 +136,15 @@ public class HomeActivity extends AppCompatActivity {
             String token= et.getText().toString();
             System.out.println(token);
             Bundle bun = new Bundle();
-            bun.putString("token", token);
-            intent.putExtras(bun);
-            startActivity(intent);
-        }
+            if (token=="") {
+                Toast.makeText(this, "No authorisation token received.", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                bun.putString("token", token);
+                intent.putExtras(bun);
+                startActivity(intent);
+            }
+    }
 
     public void goToDetect(View view) {
         startActivity(new Intent(HomeActivity.this, CameraActivity.class));

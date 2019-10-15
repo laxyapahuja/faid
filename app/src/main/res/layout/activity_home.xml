@@ -14,7 +14,7 @@
         android:layout_height="150dp"
         android:src="@drawable/logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="30dp"
         android:id="@+id/profilepic"
         android:onClick="selectImage"/>
 
@@ -111,7 +111,7 @@
             android:textAllCaps="false"
             android:fontFamily="@font/productsansbold"
             android:textSize="25sp"
-            app:icon="@drawable/ic_pan_tool_black_24dp"
+            app:icon="@drawable/detect"
             app:iconTint="@color/colorPrimaryDark"
             app:iconSize="30sp"
             app:iconGravity="textStart"
@@ -130,7 +130,7 @@
             android:textAllCaps="false"
             android:fontFamily="@font/productsansbold"
             android:textSize="25sp"
-            app:icon="@drawable/ic_search_black_24dp"
+            app:icon="@drawable/learn"
             app:iconTint="@color/colorPrimaryDark"
             app:iconSize="30sp"
             app:iconGravity="textStart"
@@ -155,10 +155,10 @@
         android:textColor="@color/colorPrimaryDark"
         android:textAllCaps="false"
         android:fontFamily="@font/productsansbold"
-        android:textSize="20sp"
-        app:icon="@drawable/ic_check_box_black_24dp"
+        android:textSize="25sp"
+        app:icon="@drawable/daignosis"
         app:iconTint="@color/colorPrimaryDark"
-        app:iconSize="25sp"
+        app:iconSize="30sp"
         app:iconGravity="textStart"
         android:elevation="5dp"
         android:onClick="goToSymptom"/>
@@ -174,8 +174,8 @@
         android:textColor="@color/colorPrimaryDark"
         android:textAllCaps="false"
         android:fontFamily="@font/productsansbold"
-        android:textSize="15sp"
-        app:icon="@drawable/ic_location_on_black_24dp"
+        android:textSize="20sp"
+        app:icon="@drawable/nearby"
         app:iconTint="@color/colorPrimaryDark"
         app:iconSize="30sp"
         android:onClick="goToNearby"
@@ -184,7 +184,6 @@
     </LinearLayout>
 
     </LinearLayout>
-
 
 
 </RelativeLayout>

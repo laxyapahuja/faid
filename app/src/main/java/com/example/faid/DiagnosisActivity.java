@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -54,45 +55,47 @@ public class DiagnosisActivity extends AppCompatActivity implements DiagnosisRec
     private void getResponse() {
         // URL transfer from SymptomActivity to this
         Bundle bundle = getIntent().getExtras();
-        String diagnosisURL = bundle.getString("url");
-        RequestQueue queue = Volley.newRequestQueue(this);
+        try {
+            String diagnosisURL = bundle.getString("url");
+            RequestQueue queue = Volley.newRequestQueue(this);
 
-        JsonArrayRequest getRequest = new JsonArrayRequest(Request.Method.GET, diagnosisURL, null,
-                new Response.Listener<JSONArray>()
-                {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        // display response
-                        Log.d("Response", response.toString());
-                        try {
-                            // fetch JSONArray named users
-                            // implement for loop for getting users list data
-                            for (int i = 0; i < response.length(); i++) {
-                                // create a JSONObject for fetching single user data
-                                JSONObject diag = response.getJSONObject(i);
-                                JSONObject issue = diag.getJSONObject("Issue");
-                                // fetch email and name and store it in arraylist
-                                Diagnosis diagnosis = new Diagnosis();
-                                diagnosis.setAccuracy(issue.getString("Accuracy"));
-                                diagnosis.setDiagnosis(issue.getString("Name"));
-                                diagnosis.setProfName(issue.getString("ProfName"));
-                                mDiagnosis.add(diagnosis);
+            JsonArrayRequest getRequest = new JsonArrayRequest(Request.Method.GET, diagnosisURL, null,
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            // display response
+                            Log.d("Response", response.toString());
+                            try {
+                                // fetch JSONArray named users
+                                // implement for loop for getting users list data
+                                for (int i = 0; i < response.length(); i++) {
+                                    // create a JSONObject for fetching single user data
+                                    JSONObject diag = response.getJSONObject(i);
+                                    JSONObject issue = diag.getJSONObject("Issue");
+                                    // fetch email and name and store it in arraylist
+                                    Diagnosis diagnosis = new Diagnosis();
+                                    diagnosis.setAccuracy(issue.getString("Accuracy"));
+                                    diagnosis.setDiagnosis(issue.getString("Name"));
+                                    diagnosis.setProfName(issue.getString("ProfName"));
+                                    mDiagnosis.add(diagnosis);
+                                }
+                                mDiagnosisRecyclerAdapter.notifyDataSetChanged();
+                            } catch (JSONException e1) {
+                                e1.printStackTrace();
                             }
-                            mDiagnosisRecyclerAdapter.notifyDataSetChanged();
-                        } catch (JSONException e1) {
-                            e1.printStackTrace();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
                         }
                     }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                }
-        );
+            );
 
-        queue.add(getRequest);
+            queue.add(getRequest);
+        } catch (Exception e){
+            startActivity(new Intent(DiagnosisActivity.this,SymptomActivity.class));
+        }
     }
 
     @Override

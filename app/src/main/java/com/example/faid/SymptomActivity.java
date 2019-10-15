@@ -67,7 +67,8 @@ public class SymptomActivity extends AppCompatActivity {
                     System.out.println(mSelectedSymptoms);
                     Toast.makeText(SymptomActivity.this, stringBuilder.toString(), Toast.LENGTH_SHORT).show();
                     goToDiagnosis();
-                } else {
+                }
+                else {
                     Toast.makeText(SymptomActivity.this, "No selection", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -81,48 +82,54 @@ public class SymptomActivity extends AppCompatActivity {
     mRecyclerView.setAdapter(mSymptomRecyclerAdapter);
     }
 
+    private void noToast(){
+        Toast.makeText(this, "Please select symptoms.", Toast.LENGTH_SHORT).show();
+    }
+
     private void getResponse() {
         Bundle bun = getIntent().getExtras();
-        String token = bun.getString("token");
-        String mtoken = token.replaceAll("\\s+","");
-        RequestQueue queue = Volley.newRequestQueue(this);
-        final String url = "https://healthservice.priaid.ch/symptoms?token="+mtoken+"&format=json&language=en-gb";
+        try {
+            String token = bun.getString("token");
+            String mtoken = token.replaceAll("\\s+", "");
+            RequestQueue queue = Volley.newRequestQueue(this);
+            final String url = "https://healthservice.priaid.ch/symptoms?token=" + mtoken + "&format=json&language=en-gb";
 
-        JsonArrayRequest getRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>()
-                {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        // display response
-                        Log.d("Response", response.toString());
-                        try {
-                            // fetch JSONArray named users
-                            // implement for loop for getting users list data
-                            for (int i = 0; i < 281; i++) {
-                                // create a JSONObject for fetching single user data
-                                JSONObject symptom = response.getJSONObject(i);
-                                // fetch email and name and store it in arraylist
-                                Symptom symp = new Symptom();
-                                symp.setID(symptom.getString("ID"));
-                                symp.setName(symptom.getString("Name"));
-                                symp.setSelect(false);
-                                mSymptoms.add(symp);
-                            }
-                            mSymptomRecyclerAdapter.notifyDataSetChanged();
+            JsonArrayRequest getRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            // display response
+                            Log.d("Response", response.toString());
+                            try {
+                                // fetch JSONArray named users
+                                // implement for loop for getting users list data
+                                for (int i = 0; i < 281; i++) {
+                                    // create a JSONObject for fetching single user data
+                                    JSONObject symptom = response.getJSONObject(i);
+                                    // fetch email and name and store it in arraylist
+                                    Symptom symp = new Symptom();
+                                    symp.setID(symptom.getString("ID"));
+                                    symp.setName(symptom.getString("Name"));
+                                    symp.setSelect(false);
+                                    mSymptoms.add(symp);
+                                }
+                                mSymptomRecyclerAdapter.notifyDataSetChanged();
                             } catch (JSONException e1) {
-                            e1.printStackTrace();
+                                e1.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
                         }
                     }
-                    },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                }
-        );
+            );
 
-        queue.add(getRequest);
+            queue.add(getRequest);
+        } catch (Exception e){
+            Toast.makeText(this, "No authorisation token.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void goToDiagnosis() {
