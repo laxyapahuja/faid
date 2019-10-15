@@ -1,8 +1,5 @@
-acne
-blister
 chickenpox
 eczema
 measles
 psoriasis
-rosacea
 warts
